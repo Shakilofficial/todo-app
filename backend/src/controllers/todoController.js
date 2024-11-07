@@ -1,6 +1,7 @@
 const Todo = require("../models/todoModel");
 const { uploadOnCloudinary } = require("../utils/cloudinary");
 
+//Get all todos
 const getAllTodo = async (req, res) => {
   try {
     const todos = await Todo.find();
@@ -12,6 +13,7 @@ const getAllTodo = async (req, res) => {
   }
 };
 
+//Get single todo
 const getSingleTodo = async (req, res) => {
   try {
     const { id } = req.params;
@@ -29,6 +31,7 @@ const getSingleTodo = async (req, res) => {
   }
 };
 
+//Create todo
 const createTodo = async (req, res) => {
   try {
     const {
@@ -75,8 +78,42 @@ const createTodo = async (req, res) => {
   }
 };
 
+//Update todo
+const updateTodo = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updateData = req.body;
+
+    // If there are files to upload, handle them
+    if (req.files && req.files.length > 0) {
+      const attachmentUrls = await Promise.all(
+        req.files.map(async (file) => {
+          const result = await uploadOnCloudinary(file.path);
+          return result.secure_url;
+        })
+      );
+      updateData.attachments = attachmentUrls;
+    }
+
+    const updatedTodo = await Todo.findByIdAndUpdate(id, updateData, {
+      new: true,
+    });
+
+    if (!updatedTodo) {
+      return res.status(404).json({ error: "Todo not found" });
+    }
+
+    res.status(200).json(updatedTodo);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Failed to update todo", message: error.message });
+  }
+};
+
 module.exports = {
   getAllTodo,
   getSingleTodo,
   createTodo,
+  updateTodo,
 };
