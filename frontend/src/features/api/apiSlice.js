@@ -3,9 +3,15 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
+  prepareHeaders: (headers) => {
+    headers.set("Content-Type", "application/json");
+    return headers;
+    },
+  tagTypes: ["Todos"],
   endpoints: (builder) => ({
     getTodos: builder.query({
-      query: () => "/api/v1/todos",
+        query: () => "/api/v1/todos",
+        providesTags: ["Todos"],
     }),
     getTodo: builder.query({
       query: (id) => `/api/v1/todos/${id}`,
@@ -29,6 +35,11 @@ const apiSlice = createApi({
   }),
 });
 
-export const { useGetTodosQuery, useGetTodoQuery, useCreateTodoMutation, useUpdateTodoMutation } = apiSlice;
+export const {
+  useGetTodosQuery,
+  useGetTodoQuery,
+  useCreateTodoMutation,
+  useUpdateTodoMutation,
+} = apiSlice;
 
 export default apiSlice;

@@ -14,6 +14,7 @@ import { Card, CardContent } from "./ui/card";
 const TodoCard = ({ todo }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const {
+    _id,
     clientName,
     assignee,
     description,
@@ -93,7 +94,7 @@ const TodoCard = ({ todo }) => {
 
           <div className="flex items-center gap-1">
             <Calendar className="w-4 h-4" />
-            <span>{format(new Date(date), "yyyy-MM-dd")}</span>
+            <span>{format(new Date(date), "dd-MM-yyyy")}</span>
           </div>
         </div>
       </CardContent>
@@ -101,6 +102,7 @@ const TodoCard = ({ todo }) => {
         isOpen={isDialogOpen}
         onClose={handleDialogClose}
         attachments={attachments}
+        todoId={_id}
       />
     </Card>
   );
