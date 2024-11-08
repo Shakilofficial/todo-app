@@ -1,9 +1,7 @@
 import { Users } from "lucide-react";
-
 import "./App.css";
 import Footer from "./components/Footer";
-import TodoColumn from "./components/todoColumn";
-
+import TodoColumn from "./components/TodoColumn";
 const statuses = [
   { title: "Incomplete", color: "bg-red-500", count: 6 },
   { title: "To Do", color: "bg-blue-500", count: 6 },
