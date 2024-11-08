@@ -1,6 +1,7 @@
 import { Users } from "lucide-react";
 
 import "./App.css";
+import Footer from "./components/Footer";
 import TodoColumn from "./components/todoColumn";
 
 const statuses = [
@@ -32,6 +33,7 @@ function App() {
             ))}
           </div>
         </div>
+        <Footer />
       </div>
     </>
   );
