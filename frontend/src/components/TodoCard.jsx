@@ -6,6 +6,7 @@ import {
   MessageSquare,
   Paperclip,
 } from "lucide-react";
+import PropTypes from "prop-types";
 import { useState } from "react";
 import AttachmentDialog from "./AttachmentDialog";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
@@ -109,3 +110,7 @@ const TodoCard = ({ todo }) => {
 };
 
 export default TodoCard;
+
+TodoCard.propTypes = {
+  todo: PropTypes.object,
+};

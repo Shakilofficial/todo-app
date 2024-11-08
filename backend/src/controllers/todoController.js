@@ -1,19 +1,17 @@
 const Todo = require("../models/todoModel");
 const { uploadOnCloudinary } = require("../utils/cloudinary");
 
-//Get all todos
+// Get all todos
 const getAllTodo = async (req, res) => {
   try {
     const todos = await Todo.find();
     res.status(200).json(todos);
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Failed to retrieve todos", message: error.message });
+    res.status(500).json({ error: "Failed to retrieve todos", message: error.message });
   }
 };
 
-//Get single todo
+// Get single todo
 const getSingleTodo = async (req, res) => {
   try {
     const { id } = req.params;
@@ -25,13 +23,11 @@ const getSingleTodo = async (req, res) => {
 
     res.status(200).json(todo);
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Failed to retrieve todo", message: error.message });
+    res.status(500).json({ error: "Failed to retrieve todo", message: error.message });
   }
 };
 
-//Create todo
+// Create todo
 const createTodo = async (req, res) => {
   try {
     const {
@@ -50,7 +46,7 @@ const createTodo = async (req, res) => {
     // Upload attachments to Cloudinary
     const attachmentUrls = await Promise.all(
       req.files.map(async (file) => {
-        const result = await uploadOnCloudinary(file.path);
+        const result = await uploadOnCloudinary(file.buffer);
         return result.secure_url;
       })
     );
@@ -72,13 +68,11 @@ const createTodo = async (req, res) => {
     await todo.save();
     res.status(201).json(todo);
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Failed to create todo", message: error.message });
+    res.status(500).json({ error: "Failed to create todo", message: error.message });
   }
 };
 
-//Update todo
+// Update todo
 const updateTodo = async (req, res) => {
   try {
     const { id } = req.params;
@@ -88,7 +82,7 @@ const updateTodo = async (req, res) => {
     if (req.files && req.files.length > 0) {
       const attachmentUrls = await Promise.all(
         req.files.map(async (file) => {
-          const result = await uploadOnCloudinary(file.path);
+          const result = await uploadOnCloudinary(file.buffer);
           return result.secure_url;
         })
       );
@@ -105,9 +99,7 @@ const updateTodo = async (req, res) => {
 
     res.status(200).json(updatedTodo);
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Failed to update todo", message: error.message });
+    res.status(500).json({ error: "Failed to update todo", message: error.message });
   }
 };
 
