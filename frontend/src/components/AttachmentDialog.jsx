@@ -23,7 +23,6 @@ const AttachmentDialog = ({ isOpen, onClose, attachments, todoId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Create FormData instance and append files
     const formData = new FormData();
     files.forEach((file) => formData.append("attachments", file));
 
@@ -34,7 +33,7 @@ const AttachmentDialog = ({ isOpen, onClose, attachments, todoId }) => {
     }
   };
 
-  // React to mutation states with side effects
+
   useEffect(() => {
     if (isSuccess) {
       toast.success("Files uploaded successfully");
