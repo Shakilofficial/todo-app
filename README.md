@@ -44,8 +44,8 @@ npm run dev
 #### Frontend Integration: Connects to a frontend application built with Redux Toolkit and Vite.
 
 ## Technologies Used
-### Backend: Node.js, Express.js, MongoDB, Mongoose
-### Frontend: React, Redux Toolkit Query, Vite, Tailwind CSS
+### Backend: Node.js, Express.js, MongoDB, Mongoose,Cloudinary
+### Frontend: React, Redux Toolkit Query, Vite, Tailwind CSS, ShadeCN 
 
 
 
